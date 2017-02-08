@@ -12,19 +12,26 @@ angular.module('quoteBook').service('dataService', function() {
       ];
 
       this.getQuotes = function(){
+          if (localStorage.getItem("isStorage")) {
+              quotes = JSON.parse(localStorage.getItem("quotes"));
+          }
           return quotes;
       };
 
       this.addData = function(text, author){
           var newQuote = {text: text, author: author};
           quotes.push(newQuote);
+          localStorage.setItem("quotes", JSON.stringify(quotes));
+          localStorage.setItem("isStorage", true);
       };
 
       this.removeData = function(text){
           for (var i = 0; i < quotes.length; i++){
-              if (text === quotes[i].text)
+              if (text === quotes[i].text) {
                  quotes.splice(i--,1);
-
+                 localStorage.setItem("quotes", JSON.stringify(quotes));
+                 localStorage.setItem("isStorage", true);
+              }
           }
          
       };
