@@ -1,29 +1,32 @@
 <!DOCTYPE html>
-<html ng-app="quoteBook">
+<html ng-app="quoteApp">
 <head>
+    
     <meta charset="utf-8">
     <title>QuoteBook</title>
-    <link rel="stylesheet" href="style.css"></link>
+    <link rel="stylesheet" href="./styles.css"></link>
+
 </head>
 <body ng-controller="mainCtrl">
 
-    <div ng-repeat="quote in quotes | filter: quoteFilter track by $index">
-        <span class="txt">{{quote.text}}</span> -- 
-        <span class="authr">{{quote.author}}</span>
-        <button class="deleteButton" ng-click="deleteQuote(quote.text);">x</button>
-    </div>
-    <div class="inputs">
-        <input placeholder="quote list filter" ng-model="quoteFilter"/>
-        <div>
-            <input placeholder="add a quote" ng-model="inTxt"/>
-            <input placeholder="new quote author" ng-model="inAuth"/>
-            <button ng-click="addQuote(inTxt, inAuth)">add</button>
-        </div>
-    </div>
+    <span class="add">
+        <input ng-model="inText" placeholder="add a new quote"/>
+        <input ng-model="inAuthor" placeholder="quote author"/>
+        <button ng-click="addQuote()">submit</button>
+    </span>
+    <span class="filter">
+        Filter: <input type="text" ng-model='filText'/>
+    </span>
 
-     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
-     <script src="js/app.js"></script>
-     <script src="js/dataService.js"></script>
-     <script src="js/mainCtrl.js"></script>
+    <p ng-repeat="quote in quotes | filter: filText">
+        <span class="message">{{quote.text}}</span>
+        <span class="author"> -- {{quote.author}}</span>
+        <button ng-click="deleteOne(quote.text)">x</button>
+    </p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.js"></script>
+    <script src="./js/app.js"></script>
+    <script src="./js/mainCtrl.js"></script>
+    <script src="./js/dataService.js"></script>
 </body>
 </html>

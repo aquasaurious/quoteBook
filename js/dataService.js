@@ -1,40 +1,34 @@
-angular.module('quoteBook').service('dataService', function() {
+angular.module('quoteApp').service('dataService', function(){
+    this.servtest = "service works";
 
-   var quotes = [
-      { text: 'Life isn\'t about getting and having, it\'s about giving and being.', author: 'Kevin Kruse'},
-      { text: 'Whatever the mind of man can conceive and believe, it can achieve', author: 'Napoleon Hill'},
-      { text: 'Strive not to be a success, but rather to be of value.', author: 'Albert Einstein'},
-      { text: 'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.', author: 'Robert Frost'},
-      { text: 'The most difficult thing is the decision to act, the rest is merely tenacity.', author: 'Amelia Earhart'},
-      { text: 'Life is what happens to you while you\'re busy making other plans.', author: 'John Lennon'},
-      { text: 'What even is a jQuery?', author: 'Tyler S. McGinnis'},
-      { text: 'Give us this day our daily bread and circuses', author: 'Steven Paul Gray'}
-      ];
+    var quotes = [
+        { text: 'Life isn\'t about getting and having, it\'s about giving and being.', author: 'Kevin Kruse'},
+        { text: 'Whatever the mind of man can conceive and believe, it can achieve', author: 'Napoleon Hill'},
+        { text: 'Strive not to be a success, but rather to be of value.', author: 'Albert Einstein'},
+        { text: 'Two roads diverged in a wood, and I took the one less traveled by, And that has made all the difference.', author: 'Robert Frost'},
+        { text: 'The most difficult thing is the decision to act, the rest is merely tenacity.', author: 'Amelia Earhart'},
+        { text: 'Life is what happens to you while you\'re busy making other plans.', author: 'John Lennon'},
+        { text: 'What even is a jQuery?', author: 'Tyler S. McGinnis'}
+    ];
 
-      this.getQuotes = function(){
-          if (localStorage.getItem("isStorage")) {
-              quotes = JSON.parse(localStorage.getItem("quotes"));
-          }
-          return quotes;
-      };
+    this.getQuotes = function() {
+        return quotes;
+    };
 
-      this.addData = function(text, author){
-          var newQuote = {text: text, author: author};
-          quotes.push(newQuote);
-          localStorage.setItem("quotes", JSON.stringify(quotes));
-          localStorage.setItem("isStorage", true);
-      };
+    this.addQuote = function(quoteObj) {
+        console.log(quoteObj.text + quoteObj.author + " oopsie")
+        if (quoteObj.text && quoteObj.author) {
+            quotes.push(quoteObj);
+            console.log(quotes);
+        }
+    };
 
-      this.removeData = function(text){
-          for (var i = 0; i < quotes.length; i++){
-              if (text === quotes[i].text) {
-                 quotes.splice(i--,1);
-                 localStorage.setItem("quotes", JSON.stringify(quotes));
-                 localStorage.setItem("isStorage", true);
-              }
-          }
-         
-      };
-
+    this.removeData = function(textToDel) {
+        for (var i = 0; i < quotes.length; i++) {
+            if (textToDel == quotes[i].text) {
+                quotes.splice(i,1);
+            }
+        }
+    }
 
 });
